@@ -1,0 +1,98 @@
+[
+  {
+    "package": "com.google.android.gms",
+    "name": "Google Play Services",
+    "riskLevel": "Critical",
+    "description": "Core component for Google APIs. Removing it will break many apps relying on Google services (e.g. Maps, Push Notifications)."
+  },
+  {
+    "package": "com.google.android.gsf",
+    "name": "Google Services Framework",
+    "riskLevel": "Critical",
+    "description": "Handles communications with Google servers. Required for Google Play and push notifications."
+  },
+  {
+    "package": "com.android.vending",
+    "name": "Google Play Store",
+    "riskLevel": "High",
+    "description": "The official app store for Android. You won't be able to install/update apps from Google if removed."
+  },
+  {
+    "package": "com.google.android.ext.services",
+    "name": "Google Play Services Extension",
+    "riskLevel": "High",
+    "description": "Provides core system functionalities for Google Play Services."
+  },
+  {
+    "package": "com.google.android.youtube",
+    "name": "YouTube",
+    "riskLevel": "Low",
+    "description": "Video streaming app. Can be safely removed and replaced with open-source alternatives like NewPipe."
+  },
+  {
+    "package": "com.google.android.apps.maps",
+    "name": "Google Maps",
+    "riskLevel": "Medium",
+    "description": "Navigation app. Can be removed if you use alternatives like OsmAnd or Magic Earth."
+  },
+  {
+    "package": "com.google.android.calendar",
+    "name": "Google Calendar",
+    "riskLevel": "Low",
+    "description": "Calendar application. Safe to remove."
+  },
+  {
+    "package": "com.google.android.apps.docs",
+    "name": "Google Drive",
+    "riskLevel": "Low",
+    "description": "Cloud storage app. Safe to remove."
+  },
+  {
+    "package": "com.google.android.gm",
+    "name": "Gmail",
+    "riskLevel": "Low",
+    "description": "Email client. Safe to remove."
+  },
+  {
+    "package": "com.google.android.apps.photos",
+    "name": "Google Photos",
+    "riskLevel": "Low",
+    "description": "Photo gallery app. Safe to remove."
+  },
+  {
+    "package": "com.google.android.googlequicksearchbox",
+    "name": "Google App",
+    "riskLevel": "Medium",
+    "description": "Google Search and Assistant. Removing it will disable voice assistant and search widgets."
+  },
+  {
+    "package": "com.facebook.katana",
+    "name": "Facebook",
+    "riskLevel": "Low",
+    "description": "Social media app with known tracking capabilities. Safe to remove."
+  },
+  {
+    "package": "com.facebook.system",
+    "name": "Facebook System",
+    "riskLevel": "Low",
+    "description": "Pre-installed Facebook background service. Safe to remove."
+  },
+  {
+    "package": "com.facebook.appmanager",
+    "name": "Facebook App Manager",
+    "riskLevel": "Low",
+    "description": "Updates Facebook apps in the background. Safe to remove."
+  },
+  {
+    "package": "com.facebook.services",
+    "name": "Facebook Services",
+    "riskLevel": "Low",
+    "description": "Background service for Facebook. Safe to remove."
+  },
+  {
+    "package": "com.samsung.android.bixby.agent",
+    "name": "Samsung Bixby",
+    "riskLevel": "Low",
+    "description": "Samsung's virtual assistant. Safe to remove."
+  }
+]
