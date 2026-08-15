@@ -18,23 +18,59 @@ class AdbService {
 
   static Future<String> get adbPath async {
     if (_adbPath != null) return _adbPath!;
-    
-    // Check bundled path relative to executable
-    final exeDir = File(Platform.resolvedExecutable).parent.path;
-    final bundledPaths = [
-      p.join(exeDir, 'data', 'flutter_assets', 'assets', 'adb', Platform.isWindows ? 'adb.exe' : 'adb'),
-      p.join(exeDir, 'adb', Platform.isWindows ? 'adb.exe' : 'adb'),
-      '/opt/homebrew/bin/adb', // Mac homebrew fallback
-    ];
-    
-    for (String path in bundledPaths) {
-      if (await File(path).exists()) {
-        _adbPath = path;
+
+    if (Platform.isMacOS) {
+      // On macOS, the .app bundle structure is:
+      // Runner.app/Contents/MacOS/degoogle_tool  (executable)
+      // Runner.app/Contents/Frameworks/App.framework/Versions/A/Resources/flutter_assets/assets/adb_mac/adb
+      final exeDir = File(Platform.resolvedExecutable).parent.path;
+      final bundledAdb = p.normalize(p.join(
+        exeDir, '..', 'Frameworks', 'App.framework',
+        'Versions', 'A', 'Resources', 'flutter_assets',
+        'assets', 'adb_mac', 'adb',
+      ));
+
+      if (await File(bundledAdb).exists()) {
+        // Flutter assets may lose execute permission, so copy to a writable
+        // location and chmod +x once.
+        final appSupport = p.join(
+          Platform.environment['HOME'] ?? '/tmp',
+          'Library', 'Application Support', 'SystemPurifier',
+        );
+        final writableAdb = p.join(appSupport, 'adb');
+
+        if (!await File(writableAdb).exists()) {
+          await Directory(appSupport).create(recursive: true);
+          await File(bundledAdb).copy(writableAdb);
+          await Process.run('chmod', ['+x', writableAdb]);
+        }
+        _adbPath = writableAdb;
         return _adbPath!;
       }
+
+      // Homebrew / system fallbacks for macOS
+      for (final fallback in ['/opt/homebrew/bin/adb', '/usr/local/bin/adb']) {
+        if (await File(fallback).exists()) {
+          _adbPath = fallback;
+          return _adbPath!;
+        }
+      }
+    } else if (Platform.isWindows) {
+      // Windows: bundled inside data/flutter_assets/assets/adb/
+      final exeDir = File(Platform.resolvedExecutable).parent.path;
+      final bundledPaths = [
+        p.join(exeDir, 'data', 'flutter_assets', 'assets', 'adb', 'adb.exe'),
+        p.join(exeDir, 'adb', 'adb.exe'),
+      ];
+      for (final path in bundledPaths) {
+        if (await File(path).exists()) {
+          _adbPath = path;
+          return _adbPath!;
+        }
+      }
     }
-    
-    // Fallback to system adb
+
+    // Ultimate fallback: system PATH
     _adbPath = 'adb';
     return _adbPath!;
   }

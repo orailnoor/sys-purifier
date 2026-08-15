@@ -74,6 +74,7 @@ flutter:
     - assets/purelogo.png
     - assets/risk_db.json
     - assets/adb/
+    - assets/adb_mac/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
