@@ -55,6 +55,8 @@ flutter_launcher_icons:
   ios: false
   macos:
     generate: true
+  windows:
+    generate: true
   image_path: "assets/purelogo.png"
 
 # For information on the generic Dart part of this file, see the
@@ -71,6 +73,7 @@ flutter:
   assets:
     - assets/purelogo.png
     - assets/risk_db.json
+    - assets/adb/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
